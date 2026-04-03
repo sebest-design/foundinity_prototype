@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Customise Avatar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #ede8df;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      position: relative;
+      display: flex;
+    }
+
+    /* ── Back button ── */
+    .back-link {
+      position: absolute;
+      top: 124px; left: 126px;
+      display: flex; align-items: center; gap: 6px;
+      text-decoration: none; color: #000;
+      font-size: 20px; font-weight: 600;
+      transition: opacity 0.15s;
+      z-index: 10;
+    }
+    .back-link:hover { opacity: 0.6; }
+    .back-link svg { width: 32px; height: 32px; }
+
+    /* ── Left panel ── */
+    .left-panel {
+      width: 56%;
+      padding: 88px 0 0 126px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .progress {
+      display: flex; gap: 8px;
+      margin-bottom: 24px;
+      margin-top: 80px;
+    }
+    .pill { width: 73px; height: 12px; border-radius: 40px; background: #0f172a; }
+    .pill.inactive { opacity: 0.35; }
+
+    .title {
+      font-size: 38px; font-weight: 600; color: #000;
+      line-height: 1.2; margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 24px; font-weight: 400; color: #000;
+      margin-bottom: 32px;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: inline-flex;
+      align-items: flex-start;
+      align-self: flex-start;
+      background: #fff;
+      border-radius: 6px;
+      padding: 5px;
+      gap: 4px;
+      margin-bottom: 28px;
+    }
+    .tab {
+      padding: 6px 12px;
+      border-radius: 3px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      line-height: 20px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .tab.active {
+      background: #f2e3cf;
+      color: #101010;
+    }
+
+    /* ── Expression grid ── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 110px);
+      gap: 12px 16px;
+    }
+
+    .face-thumb {
+      width: 110px; height: 100px;
+      border-radius: 10px;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, background 0.15s;
+      padding: 10px;
+      user-select: none;
+    }
+    .face-thumb img {
+      width: auto; height: auto;
+      max-width: 80px; max-height: 80px;
+      object-fit: contain;
+      display: block;
+    }
+    .face-thumb:hover { background: rgba(0,0,0,0.05); border-color: #ccc; }
+    .face-thumb.selected {
+      border-color: #101010;
+      background: #f2e3cf;
+    }
+
+    /* Hair / Accessories placeholder grid */
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 90px);
+      gap: 20px;
+    }
+    .placeholder-thumb {
+      width: 90px; height: 80px;
+      border-radius: 8px;
+      background: #e0dbd3;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .placeholder-thumb:hover { border-color: #aaa; }
+    .placeholder-thumb.selected { border-color: #101010; background: #f2e3cf; }
+
+    /* ── Right panel ── */
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 40px;
+      gap: 40px;
+    }
+
+    .avatar-preview {
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 2px solid #b0aba3;
+      background: #fff;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .avatar-preview img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-save {
+      display: flex; align-items: center; justify-content: center;
+      width: 307px; height: 54px; border-radius: 8px;
+      background: #151a1a; color: #f2e3cf;
+      font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+    .btn-save:active { opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- Back top-left -->
+  <a href="screen12.html" class="back-link">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 26L10 16L20 6" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+  </a>
+
+  <!-- Left panel -->
+  <div class="left-panel">
+
+    <div class="progress">
+      <div class="pill"></div>
+      <div class="pill inactive"></div>
+    </div>
+
+    <h1 class="title">Choose your Avatar</h1>
+    <p class="subtitle">Make it your own.</p>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this, 'expression')">Expression</div>
+      <div class="tab" onclick="switchTab(this, 'hair')">Hair</div>
+      <div class="tab" onclick="switchTab(this, 'accessories')">Accessories</div>
+    </div>
+
+    <!-- Expression grid -->
+    <div id="tab-expression" class="options-grid">
+      <div class="face-thumb selected" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile.svg" alt="Smile" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile-1.svg" alt="Smile 2" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile Big.svg" alt="Smile Big" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile Teeth Gap.svg" alt="Smile Teeth" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile Teeth Gap-1.svg" alt="Smile Teeth 2" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Smile Teeth Gap-2.svg" alt="Smile Teeth 3" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Suspicious.svg" alt="Suspicious" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Suspicious-1.svg" alt="Suspicious 2" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Suspicious-2.svg" alt="Suspicious 3" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Calm.svg" alt="Calm" />
+      </div>
+      <div class="face-thumb" onclick="selectThumb(this)">
+        <img src="Assets/Expression/face/Contempt.svg" alt="Contempt" />
+      </div>
+    </div>
+
+    <!-- Hair grid -->
+    <div id="tab-hair" class="placeholder-grid" style="display:none;">
+      <div class="placeholder-thumb selected" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+    </div>
+
+    <!-- Accessories grid -->
+    <div id="tab-accessories" class="placeholder-grid" style="display:none;">
+      <div class="placeholder-thumb selected" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+      <div class="placeholder-thumb" onclick="selectThumb(this)"></div>
+    </div>
+
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div class="avatar-preview">
+      <img src="Assets/Female.svg" alt="Avatar preview" />
+    </div>
+    <a href="screen14.html" class="btn-save">Save Avatar</a>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(el, tabId) {
+    // Update tab styles
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    // Show correct grid
+    ['expression','hair','accessories'].forEach(id => {
+      document.getElementById('tab-' + id).style.display = id === tabId ? 'grid' : 'none';
+    });
+  }
+
+  function selectThumb(el) {
+    const grid = el.parentElement;
+    grid.querySelectorAll('.face-thumb, .placeholder-thumb').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+</script>
+
+</body>
+</html>

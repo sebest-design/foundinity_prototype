@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Let's get to know you</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #ede8df;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      background: #ede8df;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 84px;
+    }
+
+    .headline {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .subline {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      text-align: center;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
+    .icon-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -20px;
+    }
+
+    .btn-continue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      margin-bottom: 80px;
+      transition: opacity 0.15s;
+    }
+    .btn-continue:hover { opacity: 0.88; }
+    .btn-continue:active { opacity: 0.75; transform: scale(0.99); }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+
+  <h1 class="headline">Let's get to know you better!</h1>
+  <p class="subline">Please answer the following questions with full honesty, that way we can truly find your perfect match and save you countless hours of searching</p>
+
+  <div class="icon-wrap">
+    <!-- Smiley heart icon — matches the Figma design -->
+    <svg width="280" height="260" viewBox="0 0 280 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Heart outline -->
+      <path
+        d="M140 230 C140 230 28 158 28 88 C28 56 54 32 86 32 C108 32 127 44 140 62 C153 44 172 32 194 32 C226 32 252 56 252 88 C252 158 140 230 140 230Z"
+        stroke="#cdc7b8"
+        stroke-width="14"
+        stroke-linejoin="round"
+        fill="none"
+      />
+      <!-- Left eye -->
+      <circle cx="116" cy="104" r="7" fill="#cdc7b8" />
+      <!-- Right eye -->
+      <circle cx="164" cy="104" r="7" fill="#cdc7b8" />
+      <!-- Smile -->
+      <path
+        d="M116 138 Q140 160 164 138"
+        stroke="#cdc7b8"
+        stroke-width="10"
+        stroke-linecap="round"
+        fill="none"
+      />
+    </svg>
+  </div>
+
+  <a href="screen5.html" class="btn-continue">Lets get Started</a>
+
+</div>
+
+</body>
+</html>

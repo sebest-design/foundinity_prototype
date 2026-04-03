@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Commitment & Vision</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .layout {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* ── Left panel ── */
+    .left-panel {
+      width: 32.4%;
+      flex-shrink: 0;
+      background: #ede8df;
+      padding: 130px 0 0 97px;
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .prog-pill {
+      width: 54.6px;
+      height: 9px;
+      border-radius: 40px;
+      background: #7d7f84;
+    }
+    .prog-pill.active { background: #101010; }
+
+    .left-title {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .left-sub {
+      font-size: 20px;
+      font-weight: 400;
+      color: #000;
+      max-width: 280px;
+      line-height: 1.4;
+    }
+
+    /* ── Right panel ── */
+    .right-panel {
+      flex: 1;
+      background: #fffdfb;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .right-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 48px 52px 32px 52px;
+    }
+    .right-scroll::-webkit-scrollbar { width: 6px; }
+    .right-scroll::-webkit-scrollbar-track { background: transparent; }
+    .right-scroll::-webkit-scrollbar-thumb { background: #d2cfc9; border-radius: 4px; }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #000;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    /* ── Selection options (rectangular) ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      border: 1px solid #d2cfc9;
+      background: transparent;
+      color: #000;
+      width: 507px;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .opt.selected {
+      background: #f2e3cf;
+      border-color: #f2e3cf;
+      color: #151a1a;
+    }
+    .opt:hover:not(.selected) { border-color: #aaa; }
+
+    /* ── Textarea ── */
+    .textarea-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      max-width: 1056px;
+    }
+
+    .textarea-field {
+      width: 100%;
+      height: 155px;
+      border: 1px solid #b5b0a7;
+      border-radius: 4px;
+      background: #fff;
+      padding: 8px 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-style: italic;
+      color: #606060;
+      resize: none;
+      outline: none;
+      line-height: 1.5;
+    }
+    .textarea-field:focus {
+      border-color: #888;
+      color: #000;
+      font-style: normal;
+    }
+
+    .char-count {
+      font-size: 16px;
+      font-weight: 400;
+      color: #000;
+      text-align: right;
+    }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      background: #fff;
+      height: 90px;
+      box-shadow: 0px -1px 50px 0px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      padding: 0 52px;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 213px;
+      height: 54px;
+      border-radius: 8px;
+      background: transparent;
+      color: #101010;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid #101010;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-back:hover { opacity: 0.7; }
+
+    .btn-save {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+    .btn-save:active { opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Left panel -->
+  <div class="left-panel">
+    <div class="progress-bar">
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+    </div>
+    <h1 class="left-title">Commitment &amp; Vision</h1>
+    <p class="left-sub">What's your timeline and how committed are you?</p>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div class="right-scroll">
+
+      <!-- Q1: Current status -->
+      <div class="section">
+        <p class="section-title">What best describes your current status? (Select all that apply)</p>
+        <div class="options">
+          <div class="opt selected" id="opt-cofounder" onclick="toggleCofounder(this)">Looking for cofounder to join an existing idea</div>
+          <div class="opt" onclick="toggleOpt(this)">Have some ideas but open to exploring</div>
+          <div class="opt" onclick="toggleOpt(this)">Exploring new ideas</div>
+        </div>
+      </div>
+
+      <!-- Q2: Idea stage (only shown when "Looking for cofounder" is selected) -->
+      <div class="section" id="idea-stage-section" style="display:none;">
+        <p class="section-title">What stage is your idea at?</p>
+        <div class="options" data-single="true">
+          <div class="opt selected" onclick="selectOpt(this)">Starting out/Brainstorming/Researching</div>
+          <div class="opt" onclick="selectOpt(this)">Idea researched or feedback collected</div>
+          <div class="opt" onclick="selectOpt(this)">Early version or demo built</div>
+          <div class="opt" onclick="selectOpt(this)">Product is live with users</div>
+          <div class="opt" onclick="selectOpt(this)">Making money or growing customers</div>
+        </div>
+      </div>
+
+      <!-- Q3: Tell us more -->
+      <div class="section">
+        <p class="section-title">Tell us a bit more</p>
+        <div class="textarea-wrap">
+          <textarea class="textarea-field" maxlength="300" placeholder="I'm currently building..." id="ta1" oninput="updateCount('ta1','cc1')"></textarea>
+          <span class="char-count" id="cc1">0/300 characters</span>
+        </div>
+      </div>
+
+      <!-- Q4: Long-term goal (up to 3) -->
+      <div class="section">
+        <p class="section-title">What is your long-term goal for your startup? (Select up to 3)</p>
+        <div class="options" data-max="3">
+          <div class="opt selected" onclick="toggleMaxOpt(this,3)">Build a sustainable business</div>
+          <div class="opt" onclick="toggleMaxOpt(this,3)">Grow fast and exit</div>
+          <div class="opt" onclick="toggleMaxOpt(this,3)">Make a positive impact</div>
+          <div class="opt" onclick="toggleMaxOpt(this,3)">Learn and gain experience</div>
+          <div class="opt" onclick="toggleMaxOpt(this,3)">Innovate and push the industry forward</div>
+          <div class="opt" onclick="toggleMaxOpt(this,3)">Build a legacy</div>
+        </div>
+      </div>
+
+      <!-- Q5: Time commitment -->
+      <div class="section">
+        <p class="section-title">How much time can you realistically commit over the next 6 months?</p>
+        <div class="options" data-single="true">
+          <div class="opt selected" onclick="selectOpt(this)">Already Full time</div>
+          <div class="opt" onclick="selectOpt(this)">Ready to go full time when I meet the right cofounder</div>
+          <div class="opt" onclick="selectOpt(this)">Planning to go full time in the next year</div>
+          <div class="opt" onclick="selectOpt(this)">Not ready to commit but open to exploring</div>
+        </div>
+      </div>
+
+      <!-- Q6: Vision statement -->
+      <div class="section">
+        <p class="section-title">What would be your vision statement?</p>
+        <div class="textarea-wrap">
+          <textarea class="textarea-field" maxlength="300" placeholder="I'd like to create a world where..." id="ta2" oninput="updateCount('ta2','cc2')"></textarea>
+          <span class="char-count" id="cc2">0/300 characters</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <a href="screen5.html" class="btn-back">Back</a>
+      <a href="screen7.html" class="btn-save">Save and Proceed</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Cofounder option — toggles itself AND shows/hides the idea stage section
+  function toggleCofounder(el) {
+    el.classList.toggle('selected');
+    document.getElementById('idea-stage-section').style.display =
+      el.classList.contains('selected') ? 'block' : 'none';
+  }
+
+  // Multi-select toggle
+  function toggleOpt(el) {
+    el.classList.toggle('selected');
+  }
+
+  // Single-select within parent group
+  function selectOpt(el) {
+    const group = el.parentElement;
+    group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Max-N select
+  function toggleMaxOpt(el, max) {
+    if (el.classList.contains('selected')) {
+      el.classList.remove('selected');
+    } else {
+      const group = el.parentElement;
+      const selected = group.querySelectorAll('.opt.selected');
+      if (selected.length < max) el.classList.add('selected');
+    }
+  }
+
+  // Show idea stage on load (cofounder option is pre-selected)
+  document.getElementById('idea-stage-section').style.display = 'block';
+
+  // Char counter
+  function updateCount(taId, ccId) {
+    const ta = document.getElementById(taId);
+    const cc = document.getElementById(ccId);
+    cc.textContent = ta.value.length + '/300 characters';
+  }
+</script>
+
+</body>
+</html>

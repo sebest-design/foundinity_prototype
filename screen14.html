@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — We're Almost There!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #ede8df;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      text-align: center;
+      padding: 0 40px;
+    }
+
+    .title {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      line-height: 1.5;
+      margin-bottom: 60px;
+      max-width: 700px;
+    }
+
+    .heart-illustration {
+      width: 280px;
+      height: 280px;
+      margin-bottom: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-go {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-go:hover { opacity: 0.88; }
+    .btn-go:active { opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+  <h1 class="title">We're almost there!</h1>
+  <p class="subtitle">
+    Now its time for you to add more details to your profile.<br>
+    The richer it, the higher the chance you'll find the right partner!
+  </p>
+
+  <!-- Smiley heart illustration -->
+  <div class="heart-illustration">
+    <svg width="240" height="220" viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Heart outline -->
+      <path d="M120 200 C60 155 20 120 20 75 C20 45 42 24 68 24 C88 24 106 36 120 52 C134 36 152 24 172 24 C198 24 220 45 220 75 C220 120 180 155 120 200 Z"
+        stroke="#ccc5b5" stroke-width="8" fill="none" stroke-linejoin="round"/>
+      <!-- Left eye -->
+      <circle cx="96" cy="100" r="6" fill="#ccc5b5"/>
+      <!-- Right eye -->
+      <circle cx="144" cy="100" r="6" fill="#ccc5b5"/>
+      <!-- Smile -->
+      <path d="M96 130 Q120 152 144 130" stroke="#ccc5b5" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+
+  <a href="screen15.html" class="btn-go">Lets go</a>
+</div>
+
+</body>
+</html>

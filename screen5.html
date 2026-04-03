@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Skills & Expertise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .layout {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* ── Left panel ── */
+    .left-panel {
+      width: 32.4%;
+      flex-shrink: 0;
+      background: #ede8df;
+      padding: 130px 0 0 97px;
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .prog-pill {
+      width: 54.6px;
+      height: 9px;
+      border-radius: 40px;
+      background: #7d7f84;
+    }
+    .prog-pill.active { background: #101010; }
+
+    .left-title {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .left-sub {
+      font-size: 20px;
+      font-weight: 400;
+      color: #000;
+    }
+
+    /* ── Right panel ── */
+    .right-panel {
+      flex: 1;
+      background: #fffdfb;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .right-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 48px 52px 32px 52px;
+    }
+    .right-scroll::-webkit-scrollbar { width: 0; }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #000;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    /* ── Tags (pill chips) ── */
+    .tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      border: 1px solid #d2cfc9;
+      background: transparent;
+      color: #000;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .tag.selected {
+      background: #f2e3cf;
+      border-color: #f2e3cf;
+      color: #151a1a;
+    }
+    .tag:hover:not(.selected) { border-color: #aaa; }
+
+    /* ── Experience options (rectangular) ── */
+    .exp-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exp-opt {
+      display: flex;
+      align-items: center;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      border: 1px solid #d2cfc9;
+      background: transparent;
+      color: #000;
+      width: 507px;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .exp-opt.selected {
+      background: #f2e3cf;
+      border-color: #f2e3cf;
+      color: #151a1a;
+    }
+    .exp-opt:hover:not(.selected) { border-color: #aaa; }
+
+    /* ── Industry sub-sections ── */
+    .industry-section {
+      margin-bottom: 0;
+    }
+
+    .industry-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 9px;
+    }
+
+    .industry-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+      margin-bottom: 0;
+    }
+
+    .see-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #000;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-left: auto;
+      padding-right: 4px;
+      user-select: none;
+    }
+    .see-more svg { width: 16px; height: 16px; }
+
+    .divider {
+      height: 1px;
+      background: #d2cfc9;
+      margin: 16px 0;
+    }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      background: #fff;
+      height: 90px;
+      box-shadow: 0px -1px 50px 0px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      padding: 0 52px;
+      flex-shrink: 0;
+    }
+
+    .btn-save {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+    .btn-save:active { opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Left panel -->
+  <div class="left-panel">
+    <div class="progress-bar">
+      <div class="prog-pill active"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+      <div class="prog-pill"></div>
+    </div>
+    <h1 class="left-title">Skills &amp; Expertise</h1>
+    <p class="left-sub">Tell us what you are good at</p>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div class="right-scroll">
+
+      <!-- Q1: Startup areas -->
+      <div class="section">
+        <p class="section-title">Which areas of a startup are you willing to take responsibility for?</p>
+        <div class="tags-wrap">
+          <span class="tag selected" onclick="toggleTag(this)">Design</span>
+          <span class="tag" onclick="toggleTag(this)">Technical</span>
+          <span class="tag" onclick="toggleTag(this)">Product</span>
+          <span class="tag" onclick="toggleTag(this)">Fundraising &amp; Investor Relations</span>
+          <span class="tag" onclick="toggleTag(this)">Marketing &amp; Growth</span>
+          <span class="tag" onclick="toggleTag(this)">Legal &amp; Compliance</span>
+          <span class="tag" onclick="toggleTag(this)">Operations &amp; Finance</span>
+        </div>
+      </div>
+
+      <!-- Q2: Startup experience -->
+      <div class="section">
+        <p class="section-title">How would you describe your startup experience?</p>
+        <div class="exp-options">
+          <div class="exp-opt selected" onclick="selectExp(this)">Been a Founder/Co-Founder</div>
+          <div class="exp-opt" onclick="selectExp(this)">Worked Closely with founder/founding team</div>
+          <div class="exp-opt" onclick="selectExp(this)">Worked at startup</div>
+          <div class="exp-opt" onclick="selectExp(this)">No experience but willing to learn</div>
+        </div>
+      </div>
+
+      <!-- Q3: Industries -->
+      <div class="section">
+        <p class="section-title">Which industries are you interested in?</p>
+
+        <!-- Advanced Technology -->
+        <div class="industry-section">
+          <p class="industry-label">Advanced Technology</p>
+          <div class="industry-row">
+            <span class="tag selected" onclick="toggleTag(this)">Artificial Intelligence (AI)</span>
+            <span class="tag" onclick="toggleTag(this)">AR or VR</span>
+            <span class="tag" onclick="toggleTag(this)">SaaS</span>
+            <span class="tag" onclick="toggleTag(this)">Security</span>
+            <span class="tag" onclick="toggleTag(this)">Web3 / Blockchain</span>
+            <span class="see-more">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+              See more
+            </span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Business, Work & Digital Services -->
+        <div class="industry-section">
+          <p class="industry-label">Business, Work &amp; Digital Services</p>
+          <div class="industry-row">
+            <span class="tag selected" onclick="toggleTag(this)">FinTech</span>
+            <span class="tag" onclick="toggleTag(this)">MarketingTech</span>
+            <span class="tag" onclick="toggleTag(this)">Enterprise</span>
+            <span class="tag" onclick="toggleTag(this)">Payments</span>
+            <span class="tag" onclick="toggleTag(this)">Analytics</span>
+            <span class="see-more">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+              See more
+            </span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Consumer, media & Lifestyle -->
+        <div class="industry-section">
+          <p class="industry-label">Consumer, media &amp; Lifestyle</p>
+          <div class="industry-row">
+            <span class="tag selected" onclick="toggleTag(this)">E-commerce</span>
+            <span class="tag" onclick="toggleTag(this)">Gaming</span>
+            <span class="tag" onclick="toggleTag(this)">Social Networks</span>
+            <span class="tag" onclick="toggleTag(this)">Security</span>
+            <span class="tag" onclick="toggleTag(this)">Blah Blah</span>
+            <span class="see-more">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+              See more
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <a href="screen6.html" class="btn-save">Save and Proceed</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleTag(el) {
+    el.classList.toggle('selected');
+  }
+
+  function selectExp(el) {
+    document.querySelectorAll('.exp-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+</script>
+
+</body>
+</html>

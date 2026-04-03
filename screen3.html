@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Enable Location</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #ede8df;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      background: #ede8df;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 84px;
+    }
+
+    .headline {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .subline {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000;
+      text-align: center;
+      max-width: 575px;
+      line-height: 1.4;
+    }
+
+    .icon-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -40px;
+    }
+
+    .location-icon {
+      width: 324px;
+      height: 324px;
+    }
+
+    .btn-continue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      margin-bottom: 80px;
+      transition: opacity 0.15s;
+    }
+    .btn-continue:hover { opacity: 0.88; }
+    .btn-continue:active { opacity: 0.75; transform: scale(0.99); }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+
+  <h1 class="headline">Enable Location</h1>
+  <p class="subline">So we can find you the best people around you</p>
+
+  <div class="icon-wrap">
+    <svg class="location-icon" viewBox="0 0 324 324" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Pin body -->
+      <path
+        d="M162 28C117.8 28 82 63.8 82 108C82 168 162 296 162 296C162 296 242 168 242 108C242 63.8 206.2 28 162 28Z"
+        fill="#cdc7b8"
+        stroke="#cdc7b8"
+        stroke-width="2"
+      />
+      <!-- Inner circle -->
+      <circle cx="162" cy="108" r="28" fill="#ede8df" />
+    </svg>
+  </div>
+
+  <a href="screen4.html" class="btn-continue">Allow Location Access</a>
+
+</div>
+
+</body>
+</html>

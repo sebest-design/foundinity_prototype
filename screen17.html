@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Chats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .page { display: flex; width: 100vw; height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: #151a1a;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: inset -1px 0 0 #f1f1f1;
+    }
+
+    .sidebar-logo {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .sidebar-logo img { height: 28px; width: auto; }
+
+    .sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 8px; padding-top: 8px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px 12px 24px;
+      cursor: pointer;
+      color: #f2e3cf;
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      transition: background 0.15s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.05); }
+    .nav-item.active { background: #464646; font-weight: 600; }
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: #f2e3cf;
+      border-radius: 2px 0 0 2px;
+    }
+    .nav-item img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
+    .nav-item svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    .sidebar-bottom { padding-bottom: 8px; flex-shrink: 0; }
+
+    /* ── Chat list panel ── */
+    .chat-list-panel {
+      width: 496px;
+      flex-shrink: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #e0e0e0;
+    }
+
+    .chat-list-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 24px;
+      flex-shrink: 0;
+    }
+    .back-arrow {
+      cursor: pointer;
+      color: #000;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1;
+      transition: opacity 0.15s;
+    }
+    .back-arrow:hover { opacity: 0.6; }
+    .chat-list-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .chat-list { flex: 1; overflow-y: auto; }
+    .chat-list::-webkit-scrollbar { width: 0; }
+
+    .chat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 8px;
+      margin: 2px 8px;
+    }
+    .chat-item:hover:not(.active) { background: rgba(0,0,0,0.03); }
+    .chat-item.active {
+      background: rgba(242,227,207,0.4);
+      border: 1px solid #f2e3cf;
+    }
+
+    .chat-avatar {
+      width: 53px;
+      height: 53px;
+      border-radius: 50%;
+      background: #e9e5dc;
+      border: 1px solid #c8c4be;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .chat-item-info { flex: 1; min-width: 0; }
+    .chat-item-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chat-item-preview {
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-item-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .chat-time { font-size: 12px; color: #000; }
+    .unread-badge {
+      background: #000;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 400;
+      border-radius: 10px;
+      padding: 2px 8px;
+      min-width: 30px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ── Chat view panel ── */
+    .chat-view-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    /* Chat header */
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      flex-shrink: 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-header-avatar {
+      width: 53px; height: 53px;
+      border-radius: 50%;
+      background: #e9e5dc;
+      border: 1px solid #c8c4be;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .chat-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .chat-header-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .btn-schedule {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #101010;
+      color: #f2e3cf;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-schedule:hover { opacity: 0.85; }
+    .btn-schedule svg { flex-shrink: 0; }
+
+    /* Messages area */
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .messages-area::-webkit-scrollbar { width: 4px; }
+    .messages-area::-webkit-scrollbar-thumb { background: #d2cfc9; border-radius: 4px; }
+
+    .date-separator {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(0,0,0,0.5);
+      margin: 8px 0;
+      letter-spacing: 0.05em;
+    }
+
+    /* Message rows */
+    .msg-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .msg-row.outgoing { justify-content: flex-end; }
+    .msg-row.incoming { justify-content: flex-start; }
+
+    .msg-avatar {
+      width: 37px; height: 37px;
+      border-radius: 50%;
+      background: #e9e5dc;
+      border: 1px solid #101010;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .msg-bubble {
+      max-width: 420px;
+      padding: 20px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .msg-bubble.outgoing {
+      background: #fff;
+      border: 1px solid #101010;
+      color: #000;
+    }
+    .msg-bubble.incoming {
+      background: #e9e5dc;
+      color: #000;
+    }
+
+    /* Chat footer */
+    .chat-footer {
+      padding: 12px 32px 20px;
+      flex-shrink: 0;
+    }
+
+    .msg-limit-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #666;
+    }
+    .msg-limit-divider { color: #999; }
+
+    .archive-warning {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(113,113,113,0.2);
+      border: 1px solid #4d4d4d;
+      border-radius: 100px;
+      padding: 5px 20px;
+      font-size: 12px;
+      color: #000;
+      margin-bottom: 14px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .archive-warning .dot {
+      width: 8px; height: 8px;
+      background: #101010;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .msg-input-row {
+      display: flex;
+      align-items: center;
+      border: 1px solid #101010;
+      border-radius: 25px;
+      padding: 0 16px 0 24px;
+      height: 50px;
+      background: #fff;
+    }
+    .msg-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-style: italic;
+      color: rgba(0,0,0,0.3);
+      background: transparent;
+    }
+    .msg-input::placeholder { font-style: italic; color: rgba(0,0,0,0.3); }
+    .msg-input:focus { font-style: normal; color: #000; }
+
+    .send-btn {
+      width: 32px; height: 32px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .send-btn:hover { opacity: 0.6; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="Icons/Foundinity.svg" alt="Foundinity" />
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item" onclick="location.href='screen16.html'" style="cursor:pointer;">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#f2e3cf" stroke-width="1.8"/><path d="M16.5 7.5L14 13.5L8 16L10.5 10L16.5 7.5Z" stroke="#f2e3cf" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.2" fill="#f2e3cf"/></svg>
+        Explore
+      </div>
+      <div class="nav-item">
+        <img src="Icons/People.svg" alt="People" />
+        People
+      </div>
+      <div class="nav-item active">
+        <img src="Icons/Chat.svg" alt="Chats" />
+        Chats
+      </div>
+      <div class="nav-item">
+        <img src="Icons/Profile/Icon.svg" alt="Profile" />
+        Profile
+      </div>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#f2e3cf" stroke-width="1.8"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="#f2e3cf" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Settings
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Chat list panel ── -->
+  <div class="chat-list-panel">
+    <div class="chat-list-header">
+      <span class="back-arrow">&#8249;</span>
+      <span class="chat-list-title">Chats</span>
+    </div>
+
+    <div class="chat-list">
+
+      <!-- Sneha — active, 2 unread -->
+      <div class="chat-item active">
+        <div class="chat-avatar"><img src="Assets/Female.svg" alt="Sneha" /></div>
+        <div class="chat-item-info">
+          <p class="chat-item-name">Sneha</p>
+          <p class="chat-item-preview">Hey thanks! Yeah lets do that! How about...</p>
+        </div>
+        <div class="chat-item-meta">
+          <span class="chat-time">13:52</span>
+          <span class="unread-badge">2</span>
+        </div>
+      </div>
+
+      <!-- Alex — 2 unread -->
+      <div class="chat-item">
+        <div class="chat-avatar"><img src="Assets/Male.svg" alt="Alex" /></div>
+        <div class="chat-item-info">
+          <p class="chat-item-name">Alex</p>
+          <p class="chat-item-preview">Hey what time can we meet tomorrow?</p>
+        </div>
+        <div class="chat-item-meta">
+          <span class="chat-time">13:52</span>
+          <span class="unread-badge">2</span>
+        </div>
+      </div>
+
+      <!-- Jane -->
+      <div class="chat-item">
+        <div class="chat-avatar"><img src="Assets/Female.svg" alt="Jane" /></div>
+        <div class="chat-item-info">
+          <p class="chat-item-name">Jane</p>
+          <p class="chat-item-preview">Hey what time can we meet tomorrow?</p>
+        </div>
+        <div class="chat-item-meta">
+          <span class="chat-time">13:52</span>
+        </div>
+      </div>
+
+      <!-- Joe -->
+      <div class="chat-item">
+        <div class="chat-avatar"><img src="Assets/Male.svg" alt="Joe" /></div>
+        <div class="chat-item-info">
+          <p class="chat-item-name">Joe</p>
+          <p class="chat-item-preview">Hey what time can we meet tomorrow?</p>
+        </div>
+        <div class="chat-item-meta">
+          <span class="chat-time">13:52</span>
+        </div>
+      </div>
+
+      <!-- Elizabeth -->
+      <div class="chat-item">
+        <div class="chat-avatar"><img src="Assets/Female.svg" alt="Elizabeth" /></div>
+        <div class="chat-item-info">
+          <p class="chat-item-name">Elizabeth</p>
+          <p class="chat-item-preview">Hey what time can we meet tomorrow?</p>
+        </div>
+        <div class="chat-item-meta">
+          <span class="chat-time">13:52</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Chat view panel ── -->
+  <div class="chat-view-panel">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-header-avatar"><img src="Assets/Female.svg" alt="Sneha" /></div>
+        <span class="chat-header-name">Sneha</span>
+      </div>
+      <button class="btn-schedule">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="12" rx="2" stroke="#f2e3cf" stroke-width="1.4"/><path d="M1 7h14" stroke="#f2e3cf" stroke-width="1.4"/><path d="M5 1v3M11 1v3" stroke="#f2e3cf" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Schedule meeting
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages-area">
+      <div class="date-separator">YESTERDAY</div>
+
+      <!-- Outgoing message (right, white bubble with border) -->
+      <div class="msg-row outgoing">
+        <div class="msg-bubble outgoing">
+          Hey nice to connect with you. I really like that we both are passionate about social causes. Would love to meet and learn more about you!
+        </div>
+      </div>
+
+      <!-- Incoming message (left, beige bubble + avatar) -->
+      <div class="msg-row incoming">
+        <div class="msg-avatar"><img src="Assets/Female.svg" alt="Sneha" /></div>
+        <div class="msg-bubble incoming">
+          Hey thanks! Yeah lets do that! How about 15th at 6pm after work?
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="chat-footer">
+      <div class="msg-limit-row">
+        <span><strong>4</strong> messages left</span>
+        <span class="msg-limit-divider">|</span>
+        <span><strong>10</strong> days remaining</span>
+      </div>
+      <div class="archive-warning">
+        This match archieves on 30th nov if you dont schedule a call
+      </div>
+      <div class="msg-input-row">
+        <input class="msg-input" type="text" placeholder="Type your message here" />
+        <button class="send-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="#101010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#101010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Co-Founder Preferences</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .layout { display: flex; width: 100vw; height: 100vh; }
+
+    /* ── Left panel ── */
+    .left-panel {
+      width: 32.4%;
+      flex-shrink: 0;
+      background: #ede8df;
+      padding: 130px 0 0 97px;
+    }
+
+    .progress-bar { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+    .prog-pill { width: 54.6px; height: 9px; border-radius: 40px; background: #7d7f84; }
+    .prog-pill.active { background: #101010; }
+
+    .left-title { font-size: 38px; font-weight: 600; color: #000; line-height: 1.2; margin-bottom: 4px; max-width: 380px; }
+    .left-sub { font-size: 20px; font-weight: 400; color: #000; max-width: 280px; line-height: 1.4; }
+
+    /* ── Right panel ── */
+    .right-panel {
+      flex: 1; background: #fffdfb;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .right-scroll {
+      flex: 1; overflow-y: auto;
+      padding: 48px 52px 32px 52px;
+    }
+    .right-scroll::-webkit-scrollbar { width: 6px; }
+    .right-scroll::-webkit-scrollbar-track { background: transparent; }
+    .right-scroll::-webkit-scrollbar-thumb { background: #d2cfc9; border-radius: 4px; }
+
+    .section { margin-bottom: 40px; }
+
+    .section-title {
+      font-size: 24px; font-weight: 500; color: #000;
+      line-height: 1.4; margin-bottom: 16px; max-width: 1089px;
+    }
+
+    /* ── Pill tags ── */
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 10px 24px; border-radius: 100px;
+      font-size: 16px; font-weight: 400; cursor: pointer;
+      border: 1px solid #d2cfc9; background: transparent; color: #000;
+      white-space: nowrap; user-select: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .tag.selected { background: #f2e3cf; border-color: #f2e3cf; color: #151a1a; }
+    .tag:hover:not(.selected) { border-color: #aaa; }
+
+    /* ── Rectangular options ── */
+    .options { display: flex; flex-direction: column; gap: 12px; }
+
+    .opt {
+      display: flex; align-items: center;
+      padding: 10px 24px; border-radius: 8px;
+      font-size: 16px; font-weight: 400; cursor: pointer;
+      border: 1px solid #d2cfc9; background: transparent; color: #000;
+      width: 550px; user-select: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .opt.selected { background: #f2e3cf; border-color: #f2e3cf; color: #151a1a; }
+    .opt:hover:not(.selected) { border-color: #aaa; }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      background: #fff; height: 90px;
+      box-shadow: 0px -1px 50px 0px rgba(0,0,0,0.15);
+      display: flex; align-items: center; padding: 0 52px; gap: 16px; flex-shrink: 0;
+    }
+
+    .btn-back {
+      display: flex; align-items: center; justify-content: center;
+      width: 213px; height: 54px; border-radius: 8px;
+      background: transparent; color: #101010;
+      font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 600;
+      cursor: pointer; border: 2px solid #101010; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-back:hover { opacity: 0.7; }
+
+    .btn-save {
+      display: flex; align-items: center; justify-content: center;
+      width: 307px; height: 54px; border-radius: 8px;
+      background: #151a1a; color: #f2e3cf;
+      font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+    .btn-save:active { opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Left panel -->
+  <div class="left-panel">
+    <div class="progress-bar">
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+      <div class="prog-pill active"></div>
+    </div>
+    <h1 class="left-title">Co-Founder Preferences</h1>
+    <p class="left-sub">Who are you looking to build with?</p>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div class="right-scroll">
+
+      <!-- Q1: Areas of responsibility -->
+      <div class="section">
+        <p class="section-title">Which areas would you like a co-founder to take responsibility for?</p>
+        <div class="tags-wrap">
+          <span class="tag selected" onclick="toggleTag(this)">Design</span>
+          <span class="tag" onclick="toggleTag(this)">Technical</span>
+          <span class="tag" onclick="toggleTag(this)">Product</span>
+          <span class="tag" onclick="toggleTag(this)">Fundraising &amp; Investor Relations</span>
+          <span class="tag" onclick="toggleTag(this)">Marketing &amp; Growth</span>
+          <span class="tag" onclick="toggleTag(this)">Legal &amp; Compliance</span>
+          <span class="tag" onclick="toggleTag(this)">Operations &amp; Finance</span>
+        </div>
+      </div>
+
+      <!-- Q2: Specific idea preference -->
+      <div class="section">
+        <p class="section-title">Are you looking for a co-founder who already has a specific idea, or are you open to exploring new ideas together?</p>
+        <div class="options">
+          <div class="opt selected" onclick="selectOpt(this)">I only want to see co-founders who have a specific idea</div>
+          <div class="opt" onclick="selectOpt(this)">I only want to see co-founders who are not set on a specific idea</div>
+          <div class="opt" onclick="selectOpt(this)">Both works</div>
+        </div>
+      </div>
+
+      <!-- Q3: Location preference -->
+      <div class="section">
+        <p class="section-title">Do you have a location preference?</p>
+        <div class="options">
+          <div class="opt selected" onclick="selectOpt(this)">Within 100 km of me</div>
+          <div class="opt" onclick="selectOpt(this)">In my region</div>
+          <div class="opt" onclick="selectOpt(this)">In my country</div>
+          <div class="opt" onclick="selectOpt(this)">No preference</div>
+        </div>
+      </div>
+
+      <!-- Q4: Level of commitment -->
+      <div class="section">
+        <p class="section-title">What level of commitment are you looking for?</p>
+        <div class="options">
+          <div class="opt selected" onclick="selectOpt(this)">Ready to go full time</div>
+          <div class="opt" onclick="selectOpt(this)">Work part time</div>
+          <div class="opt" onclick="selectOpt(this)">Open to discuss</div>
+          <div class="opt" onclick="selectOpt(this)">No preference</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <a href="screen9.html" class="btn-back">Back</a>
+      <a href="screen11.html" class="btn-save">Save and Proceed</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleTag(el) { el.classList.toggle('selected'); }
+
+  function selectOpt(el) {
+    el.parentElement.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+</script>
+
+</body>
+</html>

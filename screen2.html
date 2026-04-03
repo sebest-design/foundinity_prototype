@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundinity — Enter your Age</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #ede8df;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      background: #ede8df;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 84px;
+    }
+
+    /* ── Headline ── */
+    .headline {
+      font-size: 38px;
+      font-weight: 600;
+      color: #000;
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .subline {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    /* ── Age display ── */
+    .age-display {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 160px;
+      margin-bottom: 28px;
+    }
+    .age-number {
+      font-size: 52px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1;
+    }
+    .age-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    /* ── Date selects ── */
+    .date-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 260px;
+    }
+
+    .date-select {
+      width: 107px;
+      height: 39px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      padding: 0 10px;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .date-select:focus { outline: none; border-color: #000; }
+
+    /* ── Continue button ── */
+    .btn-continue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 307px;
+      height: 54px;
+      border-radius: 8px;
+      background: #151a1a;
+      color: #f2e3cf;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-continue:hover { opacity: 0.88; }
+    .btn-continue:active { opacity: 0.75; transform: scale(0.99); }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- Headline -->
+  <h1 class="headline">Enter your Age</h1>
+  <p class="subline">"Why we need this."</p>
+
+  <!-- Age display -->
+  <div class="age-display">
+    <span class="age-number" id="age-number">29</span>
+    <span class="age-label">years old</span>
+  </div>
+
+  <!-- Date selects -->
+  <div class="date-row">
+    <!-- Year -->
+    <select class="date-select" id="sel-year" onchange="updateAge()">
+      <script>
+        for (let y = new Date().getFullYear() - 10; y >= 1940; y--) {
+          document.write(`<option value="${y}"${y === 1996 ? ' selected' : ''}>${y}</option>`);
+        }
+      </script>
+    </select>
+
+    <!-- Month -->
+    <select class="date-select" id="sel-month" onchange="updateAge()">
+      <option value="0">JAN</option>
+      <option value="1">FEB</option>
+      <option value="2">MAR</option>
+      <option value="3">APR</option>
+      <option value="4">MAY</option>
+      <option value="5">JUN</option>
+      <option value="6">JUL</option>
+      <option value="7">AUG</option>
+      <option value="8">SEP</option>
+      <option value="9">OCT</option>
+      <option value="10">NOV</option>
+      <option value="11">DEC</option>
+    </select>
+
+    <!-- Day -->
+    <select class="date-select" id="sel-day" onchange="updateAge()">
+      <script>
+        for (let d = 1; d <= 31; d++) {
+          document.write(`<option value="${d}"${d === 1 ? ' selected' : ''}>${String(d).padStart(2,'0')}</option>`);
+        }
+      </script>
+    </select>
+  </div>
+
+  <!-- Continue -->
+  <a href="screen3.html" class="btn-continue">Continue</a>
+
+</div>
+
+<script>
+  function updateAge() {
+    const year  = parseInt(document.getElementById('sel-year').value);
+    const month = parseInt(document.getElementById('sel-month').value);
+    const day   = parseInt(document.getElementById('sel-day').value);
+    const today = new Date();
+    let age = today.getFullYear() - year;
+    if (today.getMonth() < month || (today.getMonth() === month && today.getDate() < day)) age--;
+    document.getElementById('age-number').textContent = Math.max(0, age);
+  }
+  updateAge();
+</script>
+
+</body>
+</html>
